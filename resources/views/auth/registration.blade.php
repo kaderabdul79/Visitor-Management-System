@@ -5,10 +5,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-4">
+                @if (session()->has('success'))
+                    <div class="alert alert-success">
+                        {{session()->get('success')}}
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-header text-center">Register User</div>
                     <div class="card-body">
-                        <form action="" method="POST">
+                        <form action="{{ route('registration.custom') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
                                 <input type="text" name="name" placeholder="name" class="form-control" id="">
