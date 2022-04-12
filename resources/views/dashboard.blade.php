@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-    
+
     @guest
         @yield('content')
     @else 
@@ -27,16 +27,35 @@
     
 <div class="container-fluid">
     <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar
-    collapse">
-    <div class="position-sticky pt-3">
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a href="{{ route('logout') }}" class="nav-link">Logout</a>
-        </li>
-    </ul>
-    </div> 
-    </nav>
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="position-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li>
+                        <a class="nav-link {{ Request::segment(1) == 'dashboard' ?
+                        'active' : '' }}" aria-current="page" href="/dashboard">
+                        Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profile') }}">Profile</a>
+                    </li>
+                    @if (Auth::user()->type == 'Admin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sub_user">Sub User</a>
+                    </li>    
+                    @endif
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link">Logout</a>
+                    </li>
+                </ul>
+            </div> 
+        </nav>
+        <div class="col-md-9 col-lg-9">
+            @yield('content')
+        </div>
+    </div>
+    {{-- <div class="row">
+         
+    </div> --}}
 </div>
 
     @endguest
